@@ -11,24 +11,25 @@ def get_db_connection():
     return conn
 
 def init_db():
-    """Initialize the database with tables for users, sessions and messages."""
+    """Initialize the database with updated schema for Guests and Social Auth."""
     conn = get_db_connection()
     
-    # Users Table
     conn.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id TEXT PRIMARY KEY,
             email TEXT UNIQUE NOT NULL,
             password_hash TEXT NOT NULL,
-            name TEXT
+            name TEXT,
+            auth_provider TEXT DEFAULT 'local' 
         )
     ''')
 
-    # Sessions Table (Updated with user_id and is_pinned)
+    # Sessions: user_id is now nullable, guest_id added
     conn.execute('''
         CREATE TABLE IF NOT EXISTS sessions (
             id TEXT PRIMARY KEY,
-            user_id TEXT NOT NULL,
+            user_id TEXT,
+            guest_id TEXT,
             title TEXT NOT NULL,
             is_pinned BOOLEAN DEFAULT 0,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -36,7 +37,6 @@ def init_db():
         )
     ''')
 
-    # Messages Table
     conn.execute('''
         CREATE TABLE IF NOT EXISTS messages (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -51,45 +51,54 @@ def init_db():
     conn.close()
 
 # --- User Management ---
-def register_user(email, password, name):
-    password_hash = generate_password_hash(password)
+def register_user(email, password, name, provider='local'):
+    password_hash = generate_password_hash(password) if password else "social_login"
     user_id = str(uuid.uuid4())
     try:
         conn = get_db_connection()
-        conn.execute('INSERT INTO users (id, email, password_hash, name) VALUES (?, ?, ?, ?)',
-                     (user_id, email, password_hash, name))
+        conn.execute('INSERT INTO users (id, email, password_hash, name, auth_provider) VALUES (?, ?, ?, ?, ?)',
+                     (user_id, email, password_hash, name, provider))
         conn.commit()
         conn.close()
         return user_id
     except sqlite3.IntegrityError:
-        return None  # Email already exists
+        return None
 
 def authenticate_user(email, password):
     conn = get_db_connection()
     user = conn.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
     conn.close()
-    if user and check_password_hash(user['password_hash'], password):
+    if user and (user['auth_provider'] != 'local' or check_password_hash(user['password_hash'], password)):
         return dict(user)
     return None
 
-# --- Session Management ---
-def create_session(user_id, title="New Chat"):
+def get_user_by_email(email):
+    conn = get_db_connection()
+    user = conn.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
+    conn.close()
+    return dict(user) if user else None
+
+# --- Session Management (Updated for Guest) ---
+def create_session(user_id=None, guest_id=None, title="New Chat"):
     session_id = str(uuid.uuid4())
     conn = get_db_connection()
-    conn.execute('INSERT INTO sessions (id, user_id, title) VALUES (?, ?, ?)', 
-                 (session_id, user_id, title))
+    conn.execute('INSERT INTO sessions (id, user_id, guest_id, title) VALUES (?, ?, ?, ?)', 
+                 (session_id, user_id, guest_id, title))
     conn.commit()
     conn.close()
     return session_id
 
-def get_user_sessions(user_id):
-    """Retrieve all sessions for a user, pinned first, then by date."""
+def get_sessions(user_id=None, guest_id=None):
+    """Get sessions for either a logged-in user OR a guest."""
     conn = get_db_connection()
-    sessions = conn.execute('''
-        SELECT * FROM sessions 
-        WHERE user_id = ? 
-        ORDER BY is_pinned DESC, created_at DESC
-    ''', (user_id,)).fetchall()
+    if user_id:
+        query = 'SELECT * FROM sessions WHERE user_id = ? ORDER BY is_pinned DESC, created_at DESC'
+        params = (user_id,)
+    else:
+        query = 'SELECT * FROM sessions WHERE guest_id = ? AND user_id IS NULL ORDER BY is_pinned DESC, created_at DESC'
+        params = (guest_id,)
+        
+    sessions = conn.execute(query, params).fetchall()
     conn.close()
     return [dict(s) for s in sessions]
 
@@ -118,11 +127,9 @@ def add_message(session_id, role, content):
     conn.execute('INSERT INTO messages (session_id, role, content) VALUES (?, ?, ?)',
                  (session_id, role, content))
     
-    # Auto-title logic for first user message
     if role == 'user':
         count = conn.execute('SELECT COUNT(*) FROM messages WHERE session_id = ?', (session_id,)).fetchone()[0]
         if count <= 1: 
-            # Keep title short
             new_title = content[:30] + "..." if len(content) > 30 else content
             conn.execute('UPDATE sessions SET title = ? WHERE id = ?', (new_title, session_id))
     
