@@ -7,7 +7,7 @@
 <h2>Features</h2>
 
 <ul>
-  <li><strong>Google Gemini 1.5 Flash integration</strong> for fast and intelligent responses</li>
+  <li><strong>Google Gemini 2.5 Flash integration</strong> for fast and intelligent responses</li>
   <li><strong>Speech-to-Text (Dictation):</strong> Use the microphone button to dictate messages directly into the chat.</li>
   <li><strong>User Authentication:</strong>
     <ul>
