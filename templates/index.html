@@ -31,182 +31,90 @@
 
         /* Auth Overlay */
         .auth-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center;
+            z-index: 1000; backdrop-filter: blur(5px);
         }
         
         .auth-box {
-            background: #2a2a2a;
-            padding: 2.5rem;
-            border-radius: 16px;
-            width: 400px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 1px solid #333;
+            background: #2a2a2a; padding: 2.5rem; border-radius: 16px;
+            width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid #333;
         }
 
         .auth-box h2 { margin-bottom: 1.5rem; text-align: center; font-size: 1.8rem; }
-        
         .auth-box input {
             width: 100%; padding: 12px; margin-bottom: 12px;
-            background: #1a1a1a; border: 1px solid #444;
-            color: white; border-radius: 8px; font-size: 1rem;
+            background: #1a1a1a; border: 1px solid #444; color: white; border-radius: 8px;
         }
-        .auth-box input:focus { border-color: var(--accent); outline: none; }
-        
         .auth-btn {
-            width: 100%; padding: 12px;
-            background: var(--accent); border: none;
-            color: white; border-radius: 8px;
-            cursor: pointer; font-weight: bold; font-size: 1rem;
-            margin-bottom: 12px; transition: opacity 0.2s;
+            width: 100%; padding: 12px; background: var(--accent); border: none;
+            color: white; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 12px;
         }
-        .auth-btn:hover { opacity: 0.9; }
+        .guest-btn { background: transparent; border: 1px solid #555; }
         
-        .guest-btn {
-            background: transparent; border: 1px solid #555;
-        }
-        .guest-btn:hover { background: rgba(255,255,255,0.05); }
-
-        .divider {
-            text-align: center; margin: 15px 0; color: #666; font-size: 0.9rem; position: relative;
-        }
-        .divider::before, .divider::after {
-            content: ""; position: absolute; top: 50%; width: 45%; height: 1px; background: #444;
-        }
+        .divider { text-align: center; margin: 15px 0; color: #666; font-size: 0.9rem; position: relative; }
+        .divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 45%; height: 1px; background: #444; }
         .divider::before { left: 0; } .divider::after { right: 0; }
 
+        /* Social Buttons */
         .social-btn {
-            width: 100%; padding: 10px; margin-bottom: 10px;
-            border-radius: 8px; border: 1px solid #444;
-            background: #1a1a1a; color: white;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-            font-weight: 500; transition: background 0.2s;
+            width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #444;
+            background: #1a1a1a; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            text-decoration: none; font-size: 0.9rem; font-weight: 500;
         }
         .social-btn:hover { background: #333; }
-        
-        .auth-switch {
-            margin-top: 15px; text-align: center;
-            font-size: 0.9rem; color: var(--text-secondary); cursor: pointer;
-        }
-        .auth-switch:hover { text-decoration: underline; }
 
-        /* Sidebar */
-        .sidebar {
-            width: 260px; background-color: var(--sidebar-bg);
-            display: flex; flex-direction: column; padding: 1rem;
-            border-right: 1px solid #333; flex-shrink: 0; transition: width 0.3s ease;
-        }
-        .sidebar.collapsed { width: 0; padding: 0; overflow: hidden; border: none; }
+        .auth-switch { text-align: center; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; margin-top: 10px; }
 
-        .sidebar-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
-        }
-
-        .new-chat-btn {
-            flex: 1; padding: 10px; border: 1px solid var(--border);
-            border-radius: 5px; background: transparent; color: white;
-            cursor: pointer; text-align: left; display: flex; align-items: center; gap: 10px;
-        }
-        .new-chat-btn:hover { background: #2a2a2a; }
-
+        /* Sidebar & Layout */
+        .sidebar { width: 260px; background-color: var(--sidebar-bg); display: flex; flex-direction: column; padding: 1rem; border-right: 1px solid #333; transition: 0.3s; }
+        .sidebar.collapsed { width: 0; padding: 0; border: none; }
+        .sidebar-header { margin-bottom: 20px; }
+        .new-chat-btn { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 5px; background: transparent; color: white; cursor: pointer; text-align: left; }
         .history-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
-
-        .history-item {
-            padding: 10px; border-radius: 5px; cursor: pointer;
-            color: var(--text-secondary); white-space: nowrap;
-            overflow: hidden; text-overflow: ellipsis; font-size: 0.9rem;
-            position: relative; display: flex; justify-content: space-between; align-items: center;
-        }
+        .history-item { padding: 10px; border-radius: 5px; cursor: pointer; color: var(--text-secondary); display: flex; justify-content: space-between; }
         .history-item:hover, .history-item.active { background: #2a2a2a; color: white; }
-        .item-options { opacity: 0; transition: opacity 0.2s; padding: 2px 6px; border-radius: 3px; }
-        .history-item:hover .item-options { opacity: 1; }
-        .item-options:hover { background: #444; }
+        .item-options { opacity: 0; } .history-item:hover .item-options { opacity: 1; }
 
-        /* User Profile in Sidebar */
-        .user-profile {
-            margin-top: auto; padding-top: 15px; border-top: 1px solid #333;
-            display: flex; align-items: center; justify-content: space-between;
-            font-size: 0.9rem; color: white;
-        }
-        .login-btn-small {
-            background: var(--accent); padding: 5px 10px; border-radius: 4px;
-            text-decoration: none; color: white; font-size: 0.8rem;
-        }
+        /* User Profile */
+        .user-profile { margin-top: auto; padding-top: 15px; border-top: 1px solid #333; display: flex; align-items: center; gap: 10px; }
+        .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #444; object-fit: cover; }
+        .user-info { flex: 1; overflow: hidden; }
+        .user-name { font-size: 0.9rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* Main Content */
-        .main-content { flex: 1; display: flex; flex-direction: column; position: relative; min-width: 0; }
-        .top-bar {
-            padding: 10px 20px; display: flex; align-items: center; gap: 10px;
-            position: absolute; top: 0; left: 0; z-index: 10;
-        }
-        .toggle-btn { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.2rem; }
-
-        .chat-container { flex: 1; overflow-y: auto; padding: 3rem 2rem 150px 2rem; scroll-behavior: smooth; }
-        .message { max-width: 800px; margin: 0 auto 2rem auto; display: flex; gap: 1.5rem; line-height: 1.6; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Chat Area */
+        .main-content { flex: 1; display: flex; flex-direction: column; position: relative; }
+        .top-bar { padding: 10px 20px; position: absolute; z-index: 10; display: flex; gap: 10px; align-items: center; }
+        .toggle-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 1.2rem; }
+        .chat-container { flex: 1; overflow-y: auto; padding: 3rem 2rem 150px 2rem; }
+        .message { max-width: 800px; margin: 0 auto 2rem auto; display: flex; gap: 1.5rem; line-height: 1.6; }
+        .avatar { width: 30px; height: 30px; border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; }
+        .message.user .avatar { background: #5436DA; } .message.assistant .avatar { background: #19c37d; }
+        .message-content pre { background: #0d0d0d; padding: 1rem; border-radius: 6px; overflow-x: auto; }
         
-        .avatar {
-            width: 30px; height: 30px; border-radius: 2px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; font-weight: bold;
-        }
-        .message.user .avatar { background: #5436DA; }
-        .message.assistant .avatar { background: #19c37d; }
-        .message-content { flex: 1; overflow-x: hidden; }
-        .message-content pre { background: #0d0d0d; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 10px 0; }
-
-        .typing-indicator { display: flex; gap: 4px; padding: 10px; background: #2a2a2a; border-radius: 10px; width: fit-content; }
-        .typing-dot { width: 8px; height: 8px; background: #999; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-
-        .input-area {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(to bottom, transparent, var(--main-bg) 20%);
-            padding: 2rem; display: flex; justify-content: center;
-        }
+        .input-area { position: absolute; bottom: 0; width: 100%; background: linear-gradient(to bottom, transparent, var(--main-bg) 20%); padding: 2rem; display: flex; justify-content: center; }
         .input-wrapper { width: 100%; max-width: 800px; position: relative; }
-        textarea {
-            width: 100%; background: var(--input-bg); border: 1px solid rgba(0,0,0,0.1); border-radius: 12px;
-            padding: 14px 50px 14px 16px; color: white; font-family: inherit; font-size: 1rem; resize: none;
-            outline: none; box-shadow: 0 0 15px rgba(0,0,0,0.1); height: 52px; max-height: 200px;
-        }
-        button#sendBtn {
-            position: absolute; right: 10px; bottom: 12px; background: transparent;
-            border: none; color: var(--text-secondary); cursor: pointer; padding: 5px;
-        }
-        
+        textarea { width: 100%; background: var(--input-bg); border: 1px solid #444; border-radius: 12px; padding: 14px 50px 14px 16px; color: white; resize: none; outline: none; height: 52px; }
+        #sendBtn { position: absolute; right: 10px; bottom: 12px; background: none; border: none; color: #888; cursor: pointer; }
+
         /* Context Menu */
-        .context-menu {
-            position: absolute; background: #2a2a2a; border: 1px solid #444; border-radius: 5px;
-            padding: 5px 0; z-index: 100; display: none; min-width: 120px;
-        }
-        .context-menu-item { padding: 8px 15px; cursor: pointer; font-size: 0.9rem; }
-        .context-menu-item:hover { background: #3a3a3a; }
+        .context-menu { position: absolute; background: #2a2a2a; border: 1px solid #444; border-radius: 5px; padding: 5px 0; z-index: 100; display: none; }
+        .context-menu-item { padding: 8px 15px; cursor: pointer; } .context-menu-item:hover { background: #3a3a3a; }
     </style>
 </head>
 <body>
 
-<!-- Auth Overlay -->
-<div id="authOverlay" class="auth-overlay" style="display: flex;">
+<div id="authOverlay" class="auth-overlay">
     <div class="auth-box">
         <h2 id="authTitle">Welcome</h2>
         
-        <div id="socialLoginSection">
-            <button class="social-btn" onclick="socialLogin('google')">
-                <i class="fab fa-google"></i> Continue with Google
-            </button>
-            <button class="social-btn" onclick="socialLogin('github')">
-                <i class="fab fa-github"></i> Continue with GitHub
-            </button>
-        </div>
+        <!-- Real OAuth Links -->
+        <a href="/login/google" class="social-btn">
+            <i class="fab fa-google"></i> Continue with Google
+        </a>
+        <a href="/login/github" class="social-btn">
+            <i class="fab fa-github"></i> Continue with GitHub
+        </a>
 
         <div class="divider">OR</div>
 
@@ -214,42 +122,38 @@
             <input type="email" id="authEmail" placeholder="Email address">
             <input type="password" id="authPass" placeholder="Password">
             <input type="text" id="authName" placeholder="Name" style="display:none;">
-            
             <button class="auth-btn" onclick="handleAuth()">Sign In</button>
-            
             <div class="auth-switch" onclick="toggleAuthMode()">Need an account? Register</div>
         </div>
 
         <div class="divider"></div>
-        
         <button class="auth-btn guest-btn" onclick="continueAsGuest()">Continue as Guest</button>
     </div>
 </div>
 
-<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <button class="new-chat-btn" onclick="createNewSession()"><span>+</span> New Chat</button>
     </div>
     <div class="history-list" id="historyList"></div>
     
-    <div class="user-profile" id="userProfile">
-        <span id="userNameDisplay">Guest</span>
-        <button onclick="logout()" style="background:none; border:none; color:#888; cursor:pointer;" title="Logout">
+    <div class="user-profile">
+        <img id="userAvatar" src="" class="user-avatar" style="display:none">
+        <div class="user-info">
+            <div id="userNameDisplay" class="user-name">Guest</div>
+        </div>
+        <button onclick="logout()" style="background:none; border:none; color:#888; cursor:pointer;">
             <i class="fas fa-sign-out-alt"></i>
         </button>
     </div>
 </div>
 
-<!-- Main Content -->
 <div class="main-content">
     <div class="top-bar">
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         <span id="currentChatTitle" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
     </div>
-
     <div class="chat-container" id="chatContainer"></div>
-
     <div class="input-area">
         <div class="input-wrapper">
             <textarea id="userInput" placeholder="Message Gemini..." oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" onkeydown="handleKey(event)"></textarea>
@@ -258,7 +162,6 @@
     </div>
 </div>
 
-<!-- Context Menu -->
 <div id="contextMenu" class="context-menu">
     <div class="context-menu-item" onclick="togglePin()">📌 Pin/Unpin</div>
     <div class="context-menu-item" onclick="renameChat()">✏️ Rename</div>
@@ -270,22 +173,41 @@
     let isRegistering = false;
     let contextSessionId = null;
     
-    // Generate or retrieve Guest ID
+    // Generate or retrieve a persistent Guest ID for non-logged-in users
     let guestId = localStorage.getItem('chat_guest_id');
     if (!guestId) {
         guestId = 'guest_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         localStorage.setItem('chat_guest_id', guestId);
     }
 
-    // --- API Helper ---
-    // Wraps fetch to include Guest ID in headers
+    // Helper: Wrapper for fetch that includes the Guest ID header
     async function apiFetch(url, options = {}) {
         if (!options.headers) options.headers = {};
         options.headers['X-Guest-ID'] = guestId;
         return fetch(url, options);
     }
 
-    // --- Auth Logic ---
+    // Check if the user is logged in on page load
+    async function checkAuthStatus() {
+        try {
+            const res = await apiFetch('/api/check_auth');
+            const data = await res.json();
+            if (data.authenticated) {
+                // Hide auth overlay and show user info
+                document.getElementById('authOverlay').style.display = 'none';
+                document.getElementById('userNameDisplay').textContent = data.name || 'User';
+                if(data.avatar) {
+                    const img = document.getElementById('userAvatar');
+                    img.src = data.avatar;
+                    img.style.display = 'block';
+                }
+                loadSessions();
+                createNewSession();
+            }
+        } catch(e) { console.log("Auth check failed", e); }
+    }
+
+    // Toggle between Login and Register forms
     function toggleAuthMode() {
         isRegistering = !isRegistering;
         document.getElementById('authTitle').textContent = isRegistering ? 'Create Account' : 'Welcome';
@@ -294,20 +216,7 @@
         document.querySelector('.auth-switch').textContent = isRegistering ? 'Have an account? Sign In' : 'Need an account? Register';
     }
 
-    async function checkAuthStatus() {
-        const res = await apiFetch('/api/check_auth');
-        const data = await res.json();
-        if (data.authenticated) {
-            document.getElementById('authOverlay').style.display = 'none';
-            document.getElementById('userNameDisplay').textContent = 'User'; // Could fetch name
-            loadSessions();
-            createNewSession();
-        } else {
-            // Show auth overlay, but don't block if they were previously guest? 
-            // Actually, we always show overlay on fresh load unless valid session cookie exists.
-        }
-    }
-
+    // Handle Guest Mode entry
     function continueAsGuest() {
         document.getElementById('authOverlay').style.display = 'none';
         document.getElementById('userNameDisplay').textContent = 'Guest Mode';
@@ -315,6 +224,7 @@
         createNewSession();
     }
 
+    // Handle Email/Password Login or Registration
     async function handleAuth() {
         const email = document.getElementById('authEmail').value;
         const pass = document.getElementById('authPass').value;
@@ -329,40 +239,21 @@
             });
             const data = await res.json();
             if (data.success) {
-                document.getElementById('authOverlay').style.display = 'none';
-                document.getElementById('userNameDisplay').textContent = isRegistering ? name : 'User';
-                loadSessions();
-                createNewSession();
+                location.reload(); 
             } else {
                 alert(data.error);
             }
         } catch (e) { alert("Connection failed"); }
     }
 
-    async function socialLogin(provider) {
-        try {
-            const res = await apiFetch(`/api/auth/social/${provider}`, { method: 'POST' });
-            const data = await res.json();
-            if (data.success) {
-                document.getElementById('authOverlay').style.display = 'none';
-                document.getElementById('userNameDisplay').textContent = data.name;
-                loadSessions();
-                createNewSession();
-            }
-        } catch (e) { alert("Social login simulation failed"); }
-    }
-
     async function logout() {
         await apiFetch('/api/logout', {method: 'POST'});
-        location.reload(); // Resets state and shows auth overlay
+        location.reload();
     }
 
-    // --- Sidebar & UI ---
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('collapsed');
-    }
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('collapsed'); }
 
-    // --- Chat Management ---
+    // Load chat history list for the sidebar
     async function loadSessions() {
         const res = await apiFetch('/api/sessions');
         const sessions = await res.json();
@@ -372,59 +263,36 @@
         sessions.forEach(session => {
             const div = document.createElement('div');
             div.className = `history-item ${session.id === currentSessionId ? 'active' : ''}`;
-            div.innerHTML = `
-                <span>${session.is_pinned ? '📌 ' : ''}${session.title}</span>
-                <span class="item-options" onclick="showContextMenu(event, '${session.id}', ${session.is_pinned})">⋮</span>
-            `;
-            div.onclick = (e) => {
-                if (!e.target.classList.contains('item-options')) loadSession(session.id);
-            };
+            div.innerHTML = `<span>${session.is_pinned ? '📌 ' : ''}${session.title}</span><span class="item-options" onclick="showContextMenu(event, '${session.id}', ${session.is_pinned})">⋮</span>`;
+            div.onclick = (e) => { if (!e.target.classList.contains('item-options')) loadSession(session.id); };
             list.appendChild(div);
         });
     }
 
+    // Context Menu Logic (Pin, Rename, Delete)
     function showContextMenu(e, sessionId, isPinned) {
         e.stopPropagation();
         const menu = document.getElementById('contextMenu');
-        menu.style.display = 'block';
-        menu.style.left = e.pageX + 'px';
-        menu.style.top = e.pageY + 'px';
+        menu.style.display = 'block'; menu.style.left = e.pageX + 'px'; menu.style.top = e.pageY + 'px';
         contextSessionId = sessionId;
         menu.children[0].textContent = isPinned ? 'Unpin' : '📌 Pin';
     }
-
     document.onclick = function() { document.getElementById('contextMenu').style.display = 'none'; }
 
     async function togglePin() {
-        // Toggle visually first for responsiveness or fetch fresh state
         const newPinState = !document.querySelector(`div[onclick*="${contextSessionId}"]`).innerText.includes('📌');
-        await apiFetch(`/api/sessions/${contextSessionId}/pin`, {
-            method: 'POST', headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ is_pinned: newPinState })
-        });
+        await apiFetch(`/api/sessions/${contextSessionId}/pin`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ is_pinned: newPinState }) });
         loadSessions();
     }
-
     async function renameChat() {
         const newTitle = prompt("Enter new chat name:");
-        if (newTitle) {
-            await apiFetch(`/api/sessions/${contextSessionId}/rename`, {
-                method: 'POST', headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ title: newTitle })
-            });
-            loadSessions();
-        }
+        if (newTitle) { await apiFetch(`/api/sessions/${contextSessionId}/rename`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ title: newTitle }) }); loadSessions(); }
     }
-
     async function deleteChat() {
-        if (confirm("Delete this chat?")) {
-            await apiFetch(`/api/sessions/${contextSessionId}`, { method: 'DELETE' });
-            if (currentSessionId === contextSessionId) createNewSession();
-            else loadSessions();
-        }
+        if (confirm("Delete this chat?")) { await apiFetch(`/api/sessions/${contextSessionId}`, { method: 'DELETE' }); if (currentSessionId === contextSessionId) createNewSession(); else loadSessions(); }
     }
 
-    // --- Messaging ---
+    // Chat Session Management
     async function createNewSession() {
         const res = await apiFetch('/api/sessions', { method: 'POST' });
         const data = await res.json();
@@ -432,10 +300,8 @@
         document.getElementById('chatContainer').innerHTML = '';
         loadSessions();
     }
-
     async function loadSession(sessionId) {
-        currentSessionId = sessionId;
-        loadSessions(); 
+        currentSessionId = sessionId; loadSessions(); 
         const res = await apiFetch(`/api/history/${sessionId}`);
         const messages = await res.json();
         const container = document.getElementById('chatContainer');
@@ -443,75 +309,43 @@
         messages.forEach(msg => appendMessage(msg.role, msg.content));
     }
 
+    // UI: Append a message to the chat window
     function appendMessage(role, text) {
         const container = document.getElementById('chatContainer');
         const div = document.createElement('div');
         div.className = `message ${role}`;
-        div.innerHTML = `
-            <div class="avatar">${role === 'user' ? 'U' : 'AI'}</div>
-            <div class="message-content">${role === 'assistant' ? marked.parse(text) : text}</div>
-        `;
-        if (role === 'assistant') {
-            div.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
-        }
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
+        // Render markdown for assistant, plain text for user
+        div.innerHTML = `<div class="avatar">${role === 'user' ? 'U' : 'AI'}</div><div class="message-content">${role === 'assistant' ? marked.parse(text) : text}</div>`;
+        if (role === 'assistant') div.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
+        container.appendChild(div); container.scrollTop = container.scrollHeight;
     }
 
-    function showTyping() {
-        const container = document.getElementById('chatContainer');
-        const div = document.createElement('div');
-        div.className = 'message assistant typing';
-        div.id = 'typingIndicator';
-        div.innerHTML = `
-            <div class="avatar">AI</div>
-            <div class="typing-indicator">
-                <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
-            </div>
-        `;
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-    }
-
-    function removeTyping() {
-        const el = document.getElementById('typingIndicator');
-        if (el) el.remove();
-    }
-
+    // Send Message Logic
     async function sendMessage() {
         const input = document.getElementById('userInput');
         const message = input.value.trim();
         if (!message) return;
-
-        input.value = ''; input.style.height = '52px';
-        appendMessage('user', message);
         
-        showTyping();
+        // Clear input and reset height
+        input.value = ''; input.style.height = '52px';
+        
+        // Optimistically show user message
+        appendMessage('user', message);
         document.getElementById('sendBtn').disabled = true;
-
+        
         try {
-            const res = await apiFetch('/api/chat', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message, session_id: currentSessionId })
-            });
+            // Send to backend
+            const res = await apiFetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message, session_id: currentSessionId }) });
             const data = await res.json();
-            removeTyping();
-            appendMessage('assistant', data.response);
-            loadSessions(); 
-        } catch (e) {
-            removeTyping();
-            appendMessage('assistant', 'Error connecting to server.');
-        }
+            
+            // Show AI response
+            appendMessage('assistant', data.response); loadSessions(); 
+        } catch (e) { appendMessage('assistant', 'Error connecting to server.'); }
         document.getElementById('sendBtn').disabled = false;
     }
+    function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
 
-    function handleKey(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault(); sendMessage();
-        }
-    }
-
-    // Init
+    // Start the app
     checkAuthStatus();
 </script>
 </body>
