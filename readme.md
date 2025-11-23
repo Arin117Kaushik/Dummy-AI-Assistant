@@ -7,12 +7,19 @@
 <h2>Features</h2>
 
 <ul>
-  <li>Google Gemini 1.5 Flash integration</li>
-  <li>Persistent memory using SQLite</li>
-  <li>User authentication (login/signup)</li>
-  <li>Modern UI with markdown + code highlighting</li>
-  <li>Pin, rename, delete conversations</li>
-  <li>Typing animations and auto-expanding input box</li>
+  <li><strong>Google Gemini 1.5 Flash integration</strong> for fast and intelligent responses</li>
+  <li><strong>Speech-to-Text (Dictation):</strong> Use the microphone button to dictate messages directly into the chat.</li>
+  <li><strong>User Authentication:</strong>
+    <ul>
+      <li>Email/Password Login & Registration</li>
+      <li><strong>OAuth Support:</strong> Sign in with Google or GitHub</li>
+      <li><strong>Guest Mode:</strong> Try the app without creating an account (data saved locally)</li>
+    </ul>
+  </li>
+  <li><strong>Persistent Memory:</strong> Chat history is saved using SQLite.</li>
+  <li><strong>Modern UI:</strong> Dark mode interface with markdown rendering and code syntax highlighting.</li>
+  <li><strong>Chat Management:</strong> Pin, rename, and delete conversations.</li>
+  <li><strong>Responsive Design:</strong> Works on desktop and mobile with a collapsible sidebar.</li>
 </ul>
 
 <hr>
@@ -29,8 +36,14 @@ cd gemini-chat</code></pre>
     <pre><code>pip install -r requirements.txt</code></pre>
   </li>
   
-  <li><strong>Set your API key:</strong>
-    <p>Open <code>ai_engine.py</code> and replace the API_KEY placeholder with your Google Gemini API key.</p>
+  <li><strong>Configuration:</strong>
+    <p>Create a <code>.env</code> file in the root directory and add your API keys:</p>
+    <pre><code>GEMINI_API_KEY=your_gemini_api_key
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+SECRET_KEY=your_flask_secret_key</code></pre>
   </li>
   
   <li><strong>Run the app:</strong>
@@ -43,22 +56,13 @@ cd gemini-chat</code></pre>
 
 <h2>Project Structure</h2>
 
-<pre><code>app.py               - Flask backend and API routes
+<pre><code>app.py               - Flask backend, API routes, and Auth logic
 database.py          - SQLite handling and user session logic
 ai_engine.py         - Wrapper for Google Gemini API
-templates/index.html - Main frontend UI
-static/              - CSS/JS assets
-requirements.txt</code></pre>
-
-<hr>
-
-<h2>Configuration</h2>
-
-<p>Set your API key inside <code>ai_engine.py</code>:</p>
-
-<pre><code>API_KEY = "YOUR_GOOGLE_GEMINI_API_KEY"</code></pre>
-
-<p>For production, use environment variables.</p>
+templates/index.html - Main frontend UI (HTML/JS/CSS)
+static/              - Assets
+requirements.txt     - Python dependencies
+.env                 - Environment variables (not committed)</code></pre>
 
 <hr>
 
@@ -66,7 +70,8 @@ requirements.txt</code></pre>
 
 <ul>
   <li>Can be deployed using Docker, Render, Fly.io, AWS, etc.</li>
-  <li>Recommended to run behind gunicorn + Nginx</li>
+  <li>Recommended to run behind gunicorn + Nginx for production.</li>
+  <li>Ensure <code>OAUTHLIB_INSECURE_TRANSPORT</code> is NOT set to 1 in production.</li>
 </ul>
 
 <hr>
@@ -75,14 +80,14 @@ requirements.txt</code></pre>
 
 <p>This project demonstrates full-stack development:</p>
 <ul>
-  <li>Flask backend and REST APIs</li>
-  <li>SQLite relational database</li>
-  <li>Authentication system</li>
-  <li>Frontend built with HTML, CSS (Grid/Flexbox), and Vanilla JS</li>
+  <li>Flask backend with RESTful APIs</li>
+  <li>SQLite relational database with Authlib integration</li>
+  <li>Secure authentication handling (hashing, sessions, OAuth)</li>
+  <li>Frontend built with HTML5, Vanilla CSS, and JavaScript (Web Speech API)</li>
 </ul>
 
 <hr>
 
-<p><strong>License:</strong> MIT (or specify your license)</p>
+<p><strong>License:</strong> MIT</p>
 
 <p><strong>Contributing:</strong> Pull requests are welcome!</p>
